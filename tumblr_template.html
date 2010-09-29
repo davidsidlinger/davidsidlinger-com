@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- DEFAULT COLORS -->
+  <meta name="color:Background" content="#fff"/>
+  <meta name="color:Title" content="#000"/>
+  <meta name="color:Description" content="#999"/>
+  <meta name="color:Text" content="#404040"/>
+  <meta name="color:Link" content="#c03030"/>
+  <meta name="color:Date Border" content="#cccccc"/>
+  <meta name="color:Post Footer" content="#999999"/>
+  <!-- END DEFAULT COLORS -->
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="{RSS}"/>
+  <title>{Title}{block:PostTitle} - {PostTitle}{/block:PostTitle}</title>
+  <link rel="icon" href="{Favicon}"/>
+  <meta name="viewport" content="width=575"/>
+  <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+  
+  <style type="text/css">
+    /* elements */
+    body {
+      background: {color:Background};
+      font: normal 1.5em/2em Georgia, serif;
+    }
+    a, a:active, a:visited {
+      color: {color:Link};
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: Helvetica, Arial, sans;
+    }
+    h1 {
+      font-size: 3.5em;
+      margin-bottom: .25em;
+    }
+    h2 {
+      font-size: 1.25em;
+    }
+    h3 {
+      font-size: 1.5em;
+    }
+    h1 a, h1 a:active, h1 a:visited {
+      color: {color:Title};
+      text-decoration: none;
+    }
+    h1 a:hover {
+      color: {color:Link};
+      text-decoration: underline;
+    }
+    blockquote {
+      font-style: italic;
+      margin-left: 2em;
+      padding: 0 1em 0 1em;
+    }
+    /* specific elements */
+    #content {
+      margin: 2em auto 0;
+      width: 80%;
+    }
+    #meta {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+    }
+    #meta li {
+      display: inline;
+      font: normal .75em Helvetica, Arial, sans;
+    }
+    #search {
+      text-align: right;
+    }
+    #search input {
+      font: normal 1em Helvetica, Arial, sans;
+    }
+    #searchresultcount {
+      font-style: italic;
+      color: {color:Description};
+      margin: 1.5em 0em;
+    }
+    #footer {
+      border-top: .1em solid {color:Description};
+      font-size: .75em;
+    }
+    #footer ul {
+      list-style: none;
+      margin: 0em;
+      padding: 1em 0em;
+    }
+    #footer ul li {
+      display: inline;
+      margin-right: 1em;
+    }
+    /* classes */
+    .post {
+      border-top: .1em solid {color:Description};
+      padding-top: .5em;
+    }
+    .quote .words {
+      font-style: italic;
+      margin-left: 2em;
+      padding: 0 1em 0 1em;
+    }
+    .conversation .person {
+      font-style: italic;
+    }
+    .regular {
+      text-align: justify;
+    }
+    .post-footer {
+      font-size: 1em;
+      margin-top: 1em;
+    }
+    .date {
+      color: {color:Description};
+      font-style: italic;
+      font-size: 1.5em;
+      margin: 1em 0em;
+    }
+    .post .photo .caption, .post .video .caption,
+    .post .quote .source, .post .audio .caption {
+      display: block;
+      margin: 1em 0em;
+    }
+  </style>
+</head>
+<body>
+    <div id="contain">     
+      <div id="content">
+        <h1><a href="/">{Title}</a></h1>
+        <h2>{Description}</h2>
+      
+        <ul id="meta">
+          <li id="rss"><a href="{RSS}">RSS</a></li> /
+          <li id="archive"><a href="/archive">Archive</a></li>
+        </ul>
+
+				<div id="search">
+					<form action="/search" method="get">
+					    <input type="text" name="q" value="{SearchQuery}"/>
+					    <input type="submit" value="Search"/>
+					</form>
+				</div>
+        
+        <div id="posts" class="autopagerize_page_element">
+				
+				{block:SearchPage}
+				<div id="searchresultcount">
+					<p>Your search for <span class="query">{SearchQuery}</span> returned {SearchResultCount} result(s).</p>
+				</div>
+				{/block:SearchPage}
+				
+				{block:IndexPage}
+				<div class="hfeed">
+				{/block:IndexPage}
+        {block:Posts}
+        <div class="post hentry">
+          {block:NewDayDate}
+          <div class="date">
+            <span class="month">{ShortMonth}</span>
+            <span class="day">{DayOfMonth}</span>
+          </div>
+          {/block:NewDayDate}
+          
+          {block:Text}
+          <div class="regular">
+            {block:Title}<h3 class="entry-title">{Title}</h3>{/block:Title}
+            <span class="entry-content">{Body}</span>
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Text}
+
+          {block:Quote}
+          <div class="quote">
+            <span class="words entry-content">&#0147;{Quote}&#0148;</span>
+            {block:Source}<span class="source entry-title">{Source}</span>{/block:Source}
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Quote}
+
+          {block:Link}
+          <div class="link">
+            <h3 class="entry-title"><a href="{URL}" {Target}>{Name}</a></h3>
+            <div class="link-body">
+            <span class="entry-content">{block:Description}{Description}{/block:Description}</span>
+            </div>
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Link}
+        
+          {block:Chat}
+          <div class="conversation">
+            {block:Title}<h3 class="entry-title">{Title}</h3>{/block:Title}
+            <span class="entry-content">
+            <ul>
+              {block:Lines}
+              <li>
+                {block:Label}<span class="person">{Label}</span>{/block:Label}
+                <span class="line">{Line}</span></li>
+              {/block:Lines}
+            </ul>
+            </span>
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Chat}
+
+          {block:Photo}
+          <div class="photo">
+            {LinkOpenTag}<img src="{PhotoURL-400}" alt="{PhotoAlt}"/>{LinkCloseTag}
+            {block:Caption}<span class="caption entry-content">{Caption}</span>{/block:Caption}
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Photo}
+
+          {block:Video}
+          <div class="video">
+            {Video-400}
+            {block:Caption}<span class="caption entry-content">{Caption}</span>{/block:Caption}
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Video}
+          
+          {block:Audio}
+          <div class="audio">
+            {AudioPlayerGrey}
+            {block:Caption}<span class="caption entry-content">{Caption}</span>{/block:Caption}
+          </div>
+          <div class="post-footer">
+            <span class="when">Posted at {12Hour}:{Minutes}{AmPm}</span>
+          {/block:Audio}
+            <a href="{Permalink}" class="permalink">Permalink</a>
+            <a class="permalink" href="http://search.twitter.com/search?q=+%40davidsidlinger+%23{PostID}">Comments</a>
+            <a class="permalink" href="http://twitter.com/home?status=%40davidsidlinger+%23{PostID}">Post a comment</a>
+          </div>
+          <br clear="all"/>
+        </div> <!-- end single post -->
+        {/block:Posts}
+				{block:IndexPage}
+				</div>
+				{/block:IndexPage}
+        </div>
+        
+        <div id="prev-next" class="autopagerize_insert_before">
+          {block:NextPage}<a href="{NextPage}" id="prev" rel="next">&#8592; Older Posts</a>{/block:NextPage}
+          Page {CurrentPage} of {TotalPages}
+          {block:PreviousPage}<a href="{PreviousPage}" id="next">Newer Posts &#8594;</a>{/block:PreviousPage}
+        </div>
+        
+        <div id="footer">
+          <ul>
+            <li><a href="http://tumblr.com/">Tumblr</a> powered</li>
+            <li><a href="{RSS}">RSS</a> syndicated</li>
+          </ul>       
+        </div> <!-- end footer -->
+      </div> <!-- end content div -->
+    </div>
+</body>
+</html>
